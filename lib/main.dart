@@ -24,9 +24,9 @@ class MyApp extends StatelessWidget {
           ),
           body: ListView(
             children: const [
-              Task('Atividade 1', 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
-              Task('Atividade 2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtDpscDwFeM0Fv3c7qKSJ4RdYp7r58UCsoWA&usqp=CAU'),
-              Task('Atividade 3', 'https://thebogotapost.com/wp-content/uploads/2017/06/636052464065850579-137719760_flyer-image-1.jpg')
+              Task('Atividade 1', 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large', 3),
+              Task('Atividade 2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtDpscDwFeM0Fv3c7qKSJ4RdYp7r58UCsoWA&usqp=CAU', 5),
+              Task('Atividade 3', 'https://thebogotapost.com/wp-content/uploads/2017/06/636052464065850579-137719760_flyer-image-1.jpg', 2)
             ],
           ),
           floatingActionButton: FloatingActionButton(onPressed: () {}),
@@ -37,8 +37,9 @@ class MyApp extends StatelessWidget {
 class Task extends StatefulWidget {
   final String nameTask;
   final String photo;
+  final int difficulty;
 
-  const Task(this.nameTask, this.photo, {Key? key}) : super(key: key);
+  const Task(this.nameTask, this.photo, this.difficulty, {Key? key}) : super(key: key);
 
   @override
   State<Task> createState() => _TaskState();
@@ -71,13 +72,28 @@ class _TaskState extends State<Task> {
                       color: Colors.black26,
                       child: Image.network(widget.photo, fit: BoxFit.cover,),
                     ),
-                    SizedBox(
-                      width: 200,
-                      child: Text(
-                        widget.nameTask,
-                        style: const TextStyle(
-                            fontSize: 24, overflow: TextOverflow.ellipsis),
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: Text(
+                            widget.nameTask,
+                            style: const TextStyle(
+                                fontSize: 24, overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.star, size: 15, color: (widget.difficulty >= 1) ? Colors.blue : Colors.blue[100]),
+                            Icon(Icons.star, size: 15, color: (widget.difficulty >= 2) ? Colors.blue : Colors.blue[100]),
+                            Icon(Icons.star, size: 15, color: (widget.difficulty >= 3) ? Colors.blue : Colors.blue[100]),
+                            Icon(Icons.star, size: 15, color: (widget.difficulty >= 4) ? Colors.blue : Colors.blue[100]),
+                            Icon(Icons.star, size: 15, color: (widget.difficulty >= 5) ? Colors.blue : Colors.blue[100]),
+                          ],
+                        ),
+                      ],
                     ),
                     SizedBox(
                       width: 52,
@@ -87,7 +103,6 @@ class _TaskState extends State<Task> {
                             setState(() {
                               nivel++;
                             });
-                            print(nivel);
                           },
                           child: Column(children: const [
                             Icon(Icons.arrow_drop_up),
@@ -101,10 +116,12 @@ class _TaskState extends State<Task> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
+                    child: SizedBox(
                       width: 200,
                       child: LinearProgressIndicator(
-                        value: nivel / 10,
+                        value: (widget.difficulty > 0)
+                        ? (nivel / widget.difficulty) / 10
+                        : 1,
                         color: Colors.white,
                       ),
                     ),
