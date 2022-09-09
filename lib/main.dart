@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,72 +17,61 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.pink,
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.grey,
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.red,
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.blue,
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.purple,
-                ),
-              ],
-            ),
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Projeto Flutter - Treino'),
+          ),
+          body: ListView(
+            children: [
+              Task('Atividade 1'),
+              Task('Atividade 2'),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(onPressed: () {}),
+        ));
+  }
+}
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+class Task extends StatelessWidget {
+  final String nameTask;
+
+  const Task(this.nameTask, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Stack(
+        children: [
+          Container(
+            color: Colors.blueAccent,
+            height: 140,
+          ),
+          Container(
+            color: Colors.white,
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.yellow,
+                  width: 70,
+                  color: Colors.black26,
                 ),
                 Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.green,
+                  width: 200,
+                  child: Text(
+                    nameTask,
+                    style: const TextStyle(
+                        fontSize: 24, overflow: TextOverflow.ellipsis),
+                  ),
                 ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.cyan,
-                ),
+                ElevatedButton(
+                    onPressed: () {}, child: const Icon(Icons.arrow_drop_up))
               ],
-            )
-          ],
-        ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
