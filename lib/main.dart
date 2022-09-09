@@ -32,11 +32,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Task extends StatelessWidget {
+class Task extends StatefulWidget {
   final String nameTask;
 
   const Task(this.nameTask, {Key? key}) : super(key: key);
 
+  @override
+  State<Task> createState() => _TaskState();
+}
+
+class _TaskState extends State<Task> {
+  int nivel = 0;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -47,28 +53,60 @@ class Task extends StatelessWidget {
             color: Colors.blueAccent,
             height: 140,
           ),
-          Container(
-            color: Colors.white,
-            height: 100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 70,
-                  color: Colors.black26,
+          Column(
+            children: [
+              Container(
+                color: Colors.white,
+                height: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 70,
+                      color: Colors.black26,
+                    ),
+                    Container(
+                      width: 200,
+                      child: Text(
+                        widget.nameTask,
+                        style: const TextStyle(
+                            fontSize: 24, overflow: TextOverflow.ellipsis),
+                      ),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            nivel++;
+                          });
+                          print(nivel);
+                        },
+                        child: const Icon(Icons.arrow_drop_up))
+                  ],
                 ),
-                Container(
-                  width: 200,
-                  child: Text(
-                    nameTask,
-                    style: const TextStyle(
-                        fontSize: 24, overflow: TextOverflow.ellipsis),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 200,
+                      child: LinearProgressIndicator(
+                        value: nivel/10,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-                ElevatedButton(
-                    onPressed: () {}, child: const Icon(Icons.arrow_drop_up))
-              ],
-            ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      'Nível: $nivel',
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ],
+              )
+            ],
           )
         ],
       ),
