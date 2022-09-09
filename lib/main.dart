@@ -1,15 +1,19 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool opacityView = true;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,26 +23,37 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           appBar: AppBar(
-            leading: Icon(Icons.home),
+            leading: const Icon(Icons.home),
             title: const Text('Projeto Flutter - Treino'),
           ),
-          body: ListView(
-            children: const [
-              Task(
-                  'Atividade 1',
-                  'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
-                  3),
-              Task(
-                  'Atividade 2',
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtDpscDwFeM0Fv3c7qKSJ4RdYp7r58UCsoWA&usqp=CAU',
-                  5),
-              Task(
-                  'Atividade 3',
-                  'https://thebogotapost.com/wp-content/uploads/2017/06/636052464065850579-137719760_flyer-image-1.jpg',
-                  2)
-            ],
+          body: AnimatedOpacity(
+            opacity: opacityView ? 1 : 0,
+            duration: const Duration(milliseconds: 800),
+            child: ListView(
+              children: const [
+                Task(
+                    'Atividade 1',
+                    'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+                    3),
+                Task(
+                    'Atividade 2',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtDpscDwFeM0Fv3c7qKSJ4RdYp7r58UCsoWA&usqp=CAU',
+                    5),
+                Task(
+                    'Atividade 3',
+                    'https://thebogotapost.com/wp-content/uploads/2017/06/636052464065850579-137719760_flyer-image-1.jpg',
+                    2)
+              ],
+            ),
           ),
-          floatingActionButton: FloatingActionButton(onPressed: () {}),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                opacityView = !opacityView;
+              });
+            },
+            child: const Icon(Icons.remove_red_eye),
+          ),
         ));
   }
 }
