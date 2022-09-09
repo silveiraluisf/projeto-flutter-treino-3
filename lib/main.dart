@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'difficulty.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -61,9 +63,9 @@ class _MyAppState extends State<MyApp> {
 class Task extends StatefulWidget {
   final String nameTask;
   final String photo;
-  final int difficulty;
+  final int difficultyLevel;
 
-  const Task(this.nameTask, this.photo, this.difficulty, {Key? key})
+  const Task(this.nameTask, this.photo, this.difficultyLevel, {Key? key})
       : super(key: key);
 
   @override
@@ -120,35 +122,7 @@ class _TaskState extends State<Task> {
                                 fontSize: 24, overflow: TextOverflow.ellipsis),
                           ),
                         ),
-                        Row(
-                          children: [
-                            Icon(Icons.star,
-                                size: 15,
-                                color: (widget.difficulty >= 1)
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                            Icon(Icons.star,
-                                size: 15,
-                                color: (widget.difficulty >= 2)
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                            Icon(Icons.star,
-                                size: 15,
-                                color: (widget.difficulty >= 3)
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                            Icon(Icons.star,
-                                size: 15,
-                                color: (widget.difficulty >= 4)
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                            Icon(Icons.star,
-                                size: 15,
-                                color: (widget.difficulty >= 5)
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                          ],
-                        ),
+                        Difficulty(difficultyLevel: widget.difficultyLevel),
                       ],
                     ),
                     SizedBox(
@@ -176,8 +150,8 @@ class _TaskState extends State<Task> {
                     child: SizedBox(
                       width: 200,
                       child: LinearProgressIndicator(
-                        value: (widget.difficulty > 0)
-                            ? (nivel / widget.difficulty) / 10
+                        value: (widget.difficultyLevel > 0)
+                            ? (nivel / widget.difficultyLevel) / 10
                             : 1,
                         color: Colors.white,
                       ),
@@ -199,3 +173,5 @@ class _TaskState extends State<Task> {
     );
   }
 }
+
+
