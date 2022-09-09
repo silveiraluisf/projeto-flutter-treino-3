@@ -23,9 +23,10 @@ class MyApp extends StatelessWidget {
             title: const Text('Projeto Flutter - Treino'),
           ),
           body: ListView(
-            children: [
-              Task('Atividade 1'),
-              Task('Atividade 2'),
+            children: const [
+              Task('Atividade 1', 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
+              Task('Atividade 2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtDpscDwFeM0Fv3c7qKSJ4RdYp7r58UCsoWA&usqp=CAU'),
+              Task('Atividade 3', 'https://thebogotapost.com/wp-content/uploads/2017/06/636052464065850579-137719760_flyer-image-1.jpg')
             ],
           ),
           floatingActionButton: FloatingActionButton(onPressed: () {}),
@@ -35,8 +36,9 @@ class MyApp extends StatelessWidget {
 
 class Task extends StatefulWidget {
   final String nameTask;
+  final String photo;
 
-  const Task(this.nameTask, {Key? key}) : super(key: key);
+  const Task(this.nameTask, this.photo, {Key? key}) : super(key: key);
 
   @override
   State<Task> createState() => _TaskState();
@@ -64,10 +66,12 @@ class _TaskState extends State<Task> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
+                      height: 100,
                       width: 70,
                       color: Colors.black26,
+                      child: Image.network(widget.photo, fit: BoxFit.cover,),
                     ),
-                    Container(
+                    SizedBox(
                       width: 200,
                       child: Text(
                         widget.nameTask,
@@ -75,7 +79,7 @@ class _TaskState extends State<Task> {
                             fontSize: 24, overflow: TextOverflow.ellipsis),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 52,
                       height: 52,
                       child: ElevatedButton(
