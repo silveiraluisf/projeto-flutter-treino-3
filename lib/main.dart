@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           appBar: AppBar(
+            leading: Icon(Icons.home),
             title: const Text('Projeto Flutter - Treino'),
           ),
           body: ListView(
@@ -43,6 +44,7 @@ class Task extends StatefulWidget {
 
 class _TaskState extends State<Task> {
   int nivel = 0;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -73,14 +75,20 @@ class _TaskState extends State<Task> {
                             fontSize: 24, overflow: TextOverflow.ellipsis),
                       ),
                     ),
-                    ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            nivel++;
-                          });
-                          print(nivel);
-                        },
-                        child: const Icon(Icons.arrow_drop_up))
+                    Container(
+                      width: 52,
+                      height: 52,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              nivel++;
+                            });
+                            print(nivel);
+                          },
+                          child: Column(children: const [
+                            Icon(Icons.arrow_drop_up),
+                            Text('UP')])),
+                    )
                   ],
                 ),
               ),
@@ -92,7 +100,7 @@ class _TaskState extends State<Task> {
                     child: Container(
                       width: 200,
                       child: LinearProgressIndicator(
-                        value: nivel/10,
+                        value: nivel / 10,
                         color: Colors.white,
                       ),
                     ),
