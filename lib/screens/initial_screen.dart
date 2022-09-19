@@ -34,7 +34,10 @@ class _InicialScreenState extends State<InicialScreen> {
             Task(
                 'Atividade 3',
                 'https://thebogotapost.com/wp-content/uploads/2017/06/636052464065850579-137719760_flyer-image-1.jpg',
-                2)
+                2),
+            SizedBox(
+              height: 80,
+            )
           ],
         ),
       ),

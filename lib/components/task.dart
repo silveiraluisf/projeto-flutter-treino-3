@@ -28,7 +28,8 @@ class _TaskState extends State<Task> {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                color: Colors.blueAccent),
+                color: Colors.blueAccent
+            ),
             height: 140,
           ),
           Column(
