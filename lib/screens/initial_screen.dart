@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_flutter_treino_3/components/task.dart';
+import 'package:projeto_flutter_treino_3/data/task_inherited.dart';
 import 'package:projeto_flutter_treino_3/screens/form_screen.dart';
 
 class InicialScreen extends StatefulWidget {
@@ -18,30 +19,14 @@ class _InicialScreenState extends State<InicialScreen> {
         title: const Text('Projeto Flutter - Treino'),
       ),
       body: ListView(
-        children: const [
-          Task(
-              'Atividade 1',
-              'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
-              3),
-          Task(
-              'Atividade 2',
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtDpscDwFeM0Fv3c7qKSJ4RdYp7r58UCsoWA&usqp=CAU',
-              5),
-          Task(
-              'Atividade 3',
-              'https://thebogotapost.com/wp-content/uploads/2017/06/636052464065850579-137719760_flyer-image-1.jpg',
-              2),
-          SizedBox(
-            height: 80,
-          )
-        ],
+        children: TaskInherited.of(context).taskList,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const FormScreen(),
+              builder: (contextNew) => FormScreen(taskContext: context,),
             ),
           );
         },
