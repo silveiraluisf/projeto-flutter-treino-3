@@ -34,6 +34,8 @@ class _FormScreenState extends State<FormScreen> {
                   border: Border.all(width: 1, color: Colors.black26),
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -131,6 +133,7 @@ class _FormScreenState extends State<FormScreen> {
                               print(nameController.text);
                               print(int.parse(difficultyController.text));
                               print(imageController.text);
+                              Navigator.pop(context);
                             }
                           },
                           child: const Text('Add')),
